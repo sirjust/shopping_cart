@@ -5,24 +5,93 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Shopping Cart Course</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <style></style>
+        <style>
+            .item{
+                border: 1px solid black;
+                padding: 20px;
+                width: 200px;
+                float: left;
+                height:300px;
+            }
+            
+            #output {
+                clear: both;
+                border: 1px solid black;
+                padding: 30px;
+            }
+        </style>
     </head>
     <body>
+        <div class="item"><h3>iPhone</h3><img src="https://via.placeholder.com/350x150" class="img-fluid">
+            <div>Product Information description etcccccccccccccccc it's awesome<a href="#" class="productitem" data-name="iPhone" data-s="black" data-price="50000" data-id="1">Add to Cart</a></div>
+        </div>
+        <div class="item"><h3>iPad</h3><img src="https://via.placeholder.com/350x150" class="img-fluid">
+            <div>Product Information description etcccccccccccccccc it's awesome<a href="#" class="productitem" data-name="iPad" data-s="white" data-price="30000" data-id="2">Add to Cart</a></div>
+        </div>
+        <div class="item"><h3>Cable 3</h3><img src="https://via.placeholder.com/350x150" class="img-fluid">
+            <div>Product Information description etcccccccccccccccc it's awesome<a href="#" class="productitem" data-name="Cable" data-s="3" data-price="1200" data-id="3">Add to Cart</a></div>
+        </div>
+        <div class="item"><h3>SD Card 32GB</h3><img src="https://via.placeholder.com/350x150" class="img-fluid">
+            <div>Product Information description etcccccccccccccccc it's awesome<a href="#" class="productitem" data-name="SD Card" data-s="32GB" data-price="3000" data-id="4">Add to Cart</a></div>
+        </div>
+        <div class="item"><h3>SD Card 16GB</h3><img src="https://via.placeholder.com/350x150" class="img-fluid">
+            <div>Product Information description etcccccccccccccccc it's awesome<a href="#" class="productitem" data-name="SD Card" data-s="16GB" data-price="2000" data-id="5">Add to Cart</a></div>
+        </div>
+        <div class="item"><h3>SD Card 4GB</h3><img src="https://via.placeholder.com/350x150" class="img-fluid">
+            <div>Product Information description etcccccccccccccccc it's awesome<a href="#" class="productitem" data-name="SD Card" data-s="4GB" data-price="1000" data-id="6">Add to Cart</a></div>
+        </div>
         
-        <div><img src="https://via.placeholder.com/350x150"><div>Product Information description etcccccccccccccccccccccccccccccccc <a href="#" class="productitem">Add to cart</a></div></div>
-        
-        
+        <div id="output">
+            
+        </div>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <script>
-            $(document).ready(function(){
+            var shopcart = [];
+            $(document).ready(function(){   
+                
                 $(".productitem").click(function(e){
                     e.preventDefault();
-                    console.log("item clicked");
                     
+                    var iteminfo = $(this.dataset)[0];
+                    iteminfo.qty = 1;
+                    var itemInCart = false;
+                    
+                    $.each(shopcart,function(index,value){
+                        // console.log(index + ' ' + value.id);
+                        if(value.id == iteminfo.id){
+                            value.qty= parseInt(value.qty) + parseInt(iteminfo.qty);
+                            itemInCart = true;
+                        }
+                    })
+                    
+                    if(!itemInCart){
+                        shopcart.push(iteminfo);
+                    }
+                    sessionStorage["sc"] = JSON.stringify(shopcart);
+                    outputCart();
                 })
-                
+            
+            function outputCart(){
+                if(sessionStorage["sc"] != null){
+                   shopcart = JSON.parse(sessionStorage["sc"].toString());
+                   console.log(sessionStorage["sc"]);
+                }
+                var holderHTML = '';
+                var total = 0;
+                $.each(shopcart,function(index,value){
+                    console.log(value);
+                    var subtotal = value.qty * value.price;
+                    total += subtotal;
+                    holderHTML += '<div>Item'+value.name + '('+value.s+') Qty ' + value.qty + ' Price ' + formatMoney(value.price)+' ID ('+value.id+') subtotal= '+formatMoney(subtotal)+'</div>';
+                })
+                holderHTML += '<div>'+formatMoney(total)+'</div>';
+                $("#output").html(holderHTML);
+                }
+            function formatMoney(n){
+                return '$' + (n/100).toFixed(2);
+            }
             })
         </script>
     </body>
