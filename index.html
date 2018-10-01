@@ -14,38 +14,153 @@
             #checkout-div {
                 display: none;
             }
+            
+            footer {
+                background-color: darkgray;
+                color: white;
+            }
         </style>
     </head>
     <body>
-        <div id="checkout-div">
-            <div>Subtotal <span class="items"></span>(Items) : <span class="total"></span> 
-                <span class="btn btn-success" data-toggle="modal" data-target="#cart">Open Shopping Cart</span>
-                <a href="checkout.html" class="btn btn-primary">Proceed to checkout</a>
+        <header class="header">
+            <div class="htop">
+                <div id="checkout-div">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 text-right"><span class="items text-muted"></span><small> items</small> : <span class="total"></span>                         </div>
+                            <div class="col-md-6 text-right"><span class="btn btn-success" data-toggle="modal" data-target="#cart">Open Shopping Cart</span>
+                                <a href="checkout.html" class="btn btn-primary">Proceed to checkout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div>
-            
+            <div class="hbot">
+                <div class="container">
+                    <nav class="navbar navbar-dark bg-dark navbar-expand-md">
+                        <button class="navbar-toggler light hidden-sm-up" type="button" data-toggle="collapse" data-target="#nvbar"></button>
+                        <div id="nvbar" class="collapse navbar-toggleable navbar-collapse">
+                            <ul class="nav navbar-nav">
+                                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                                <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                                <li class="nav-item"><a class="nav-link" href="products.html">Products</a></li>
+                            </ul> 
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <div class="content">
+            <!--content changes on each page-->
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-block">
+                                <h3 class="card-title">iPhone</h3><h6 class="card-subtitle text-muted">$500.00</h6>
+                                <img src="https://via.placeholder.com/350x150" class="img-fluid">
+                            </div>
+                            <div class="card-block">
+                                <div class="card-text">Product Information description etcccccccccccccccc it's awesome
+                                    <a href="#" class="card-link productitem btn btn-primary" data-name="iPhone" data-s="black" data-price="50000" data-id="1">Add to Cart</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-block">
+                                <h3 class="card-title">iPad</h3><h6 class="card-subtitle text-muted">$300.00</h6>
+                                <img src="https://via.placeholder.com/350x150" class="img-fluid">
+                            </div>
+                            <div class="card-block">
+                                <div class="card-text">Product Information description etcccccccccccccccc it's awesome
+                                    <a href="#" class="card-link productitem btn btn-primary" data-name="iPad" data-s="white" data-price="30000" data-id="2">Add to Cart</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-block">
+                                <h3 class="card-title">Cable 3</h3><h6 class="card-subtitle text-muted">$12.00</h6>
+                                <img src="https://via.placeholder.com/350x150" class="img-fluid">
+                            </div>
+                            <div class="card-block">
+                                <div class="card-text">Product Information description etcccccccccccccccc it's awesome
+                                    <a href="#" class="card-link productitem btn btn-primary" data-name="Cable" data-s="3" data-price="1200" data-id="3">Add to Cart</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-block">
+                                <h3 class="card-title">SD Card 32GB</h3><h6 class="card-subtitle text-muted">$30.00</h6>
+                                <img src="https://via.placeholder.com/350x150" class="img-fluid">
+                            </div>
+                            <div class="card-block">
+                                <div class="card-text">Product Information description etcccccccccccccccc it's awesome
+                                    <a href="#" class="card-link productitem btn btn-primary" data-name="SD Card" data-s="32GB" data-price="3000" data-id="4">Add to Cart</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-block">
+                                <h3 class="card-title">SD Card 16GB</h3><h6 class="card-subtitle text-muted">$20.00</h6>
+                                <img src="https://via.placeholder.com/350x150" class="img-fluid">
+                            </div>
+                            <div class="card-block">
+                                <div class="card-text">Product Information description etcccccccccccccccc it's awesome
+                                    <a href="#" class="card-link productitem btn btn-primary" data-name="SD Card" data-s="16GB" data-price="2000" data-id="5">Add to Cart</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-block">
+                                <h3 class="card-title">SD Card 4GB</h3><h6 class="card-subtitle text-muted">$10.00</h6>
+                                <img src="https://via.placeholder.com/350x150" class="img-fluid">
+                            </div>
+                            <div class="card-block">
+                                <div class="card-text">Product Information description etcccccccccccccccc it's awesome
+                                    <a href="#" class="card-link productitem btn btn-primary" data-name="SD Card" data-s="4GB" data-price="1000" data-id="6">Add to Cart</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-block">
+                                <h3 class="card-title">Cable 4</h3><h6 class="card-subtitle text-muted">$16.00</h6>
+                                <img src="https://via.placeholder.com/350x150" class="img-fluid">
+                            </div>
+                            <div class="card-block">
+                                <div class="card-text">Product Information description etcccccccccccccccc it's awesome
+                                    <a href="#" class="card-link productitem btn btn-primary" data-name="Cable" data-s="4" data-price="1600" data-id="7">Add to Cart</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-block">
+                                <h3 class="card-title">Cable 1</h3><h6 class="card-subtitle text-muted">$3.00</h6>
+                                <img src="https://via.placeholder.com/350x150" class="img-fluid">
+                            </div>
+                            <div class="card-block">
+                                <div class="card-text">Product Information description etcccccccccccccccc it's awesome
+                                    <a href="#" class="card-link productitem btn btn-primary" data-name="Cable" data-s="1" data-price="300" data-id="8">Add to Cart</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="item"><h3>iPhone</h3><img src="https://via.placeholder.com/350x150" class="img-fluid">
-            <div>Product Information description etcccccccccccccccc it's awesome<a href="#" class="productitem" data-name="iPhone" data-s="black" data-price="50000" data-id="1">Add to Cart</a></div>
-        </div>
-        <div class="item"><h3>iPad</h3><img src="https://via.placeholder.com/350x150" class="img-fluid">
-            <div>Product Information description etcccccccccccccccc it's awesome<a href="#" class="productitem" data-name="iPad" data-s="white" data-price="30000" data-id="2">Add to Cart</a></div>
-        </div>
-        <div class="item"><h3>Cable 3</h3><img src="https://via.placeholder.com/350x150" class="img-fluid">
-            <div>Product Information description etcccccccccccccccc it's awesome<a href="#" class="productitem" data-name="Cable" data-s="3" data-price="1200" data-id="3">Add to Cart</a></div>
-        </div>
-        <div class="item"><h3>SD Card 32GB</h3><img src="https://via.placeholder.com/350x150" class="img-fluid">
-            <div>Product Information description etcccccccccccccccc it's awesome<a href="#" class="productitem" data-name="SD Card" data-s="32GB" data-price="3000" data-id="4">Add to Cart</a></div>
-        </div>
-        <div class="item"><h3>SD Card 16GB</h3><img src="https://via.placeholder.com/350x150" class="img-fluid">
-            <div>Product Information description etcccccccccccccccc it's awesome<a href="#" class="productitem" data-name="SD Card" data-s="16GB" data-price="2000" data-id="5">Add to Cart</a></div>
-        </div>
-        <div class="item"><h3>SD Card 4GB</h3><img src="https://via.placeholder.com/350x150" class="img-fluid">
-            <div>Product Information description etcccccccccccccccc it's awesome<a href="#" class="productitem" data-name="SD Card" data-s="4GB" data-price="1000" data-id="6">Add to Cart</a></div>
-        </div>
+        <footer class="footer"><div class="container"><p>&copy; Copyright info etccc</p></div>
+
+        </footer>
+        
+
             
-        </div>
         <!--MODALS-->
         <div class="modal fade" id="cart" tabindex="-1">
             <div class="modal-dialog">
@@ -74,9 +189,6 @@
                 </div>
             </div>
         </div>
-        
-        
-        
         
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

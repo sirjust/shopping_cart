@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Checkout Page</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <style>
+
+        </style>
+    </head>
+    <body>
+
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+<input type="hidden" name="cmd" value="_cart">
+<input type="hidden" name="upload" value="1">
+<input type="hidden" name="business" value="seller@dezignerfotos.com">
+
+<input type="hidden" name="item_name_1" value="Item Name 1">
+<input type="hidden" name="amount_1" value="1.00">
+<input type="hidden" name="shipping_1" value="1.75">
+    
+    
+<input type="submit" value="PayPal">
+</form>
+        
+<table class="table table-hover">
+    <thead class="thead-inverse">
+        <tr>
+            <th>Quantity</th>
+            <th>Item Name</th>
+            <th>Cost</th>
+            <th class="text-right">Subtotal</th>
+        </tr>
+    </thead>
+    <tbody id="output">
+        <td></td>
+        <td></td>
+    </tbody>
+
+</table>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        
+<script>
+    var shopcart = [];
+    $(document).ready(function(){   
+    outputCart();
+        
+    function outputCart(){
+        if(sessionStorage["sc"] != null){
+           shopcart = JSON.parse(sessionStorage["sc"].toString());
+           console.log(sessionStorage["sc"]);
+            $("#checkout-div").show();
+        }
+        var holderHTML = '';
+        var total = 0;
+        var itemCount = 0;
+        $.each(shopcart,function(index,value){
+            console.log(value);
+            var subtotal = value.qty * value.price;
+            total += subtotal;
+            itemCount += parseInt(value.qty);
+            holderHTML += '<tr><td>'+value.qty + '</td><td>#' + value.id + ' ' + value.name + '(' + value.s + ')</td><td>'+ formatMoney(value.price) +'</td><td class="text-right">' +formatMoney(subtotal)+'</td></tr>';
+        })
+        holderHTML += '<tr><td colspan="3" class="text-right">Total</td><td class="text-right">'+formatMoney(total)+'</td></tr>';
+        $("#output").html(holderHTML);
+        $(".total").html(formatMoney(total));
+        $(".items").html(itemCount);
+        }
+    function formatMoney(n){
+        return '$' + (n/100).toFixed(2);
+    }
+    })
+
+</script>
+    </body>
+</html>
