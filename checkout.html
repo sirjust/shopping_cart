@@ -6,7 +6,9 @@
         <title>Checkout Page</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <style>
-
+            input[type="number"]{
+                width:50px;
+            }
         </style>
     </head>
     <body>
@@ -15,14 +17,9 @@
 <input type="hidden" name="cmd" value="_cart">
 <input type="hidden" name="upload" value="1">
 <input type="hidden" name="business" value="seller@dezignerfotos.com">
-
-<input type="hidden" name="item_name_1" value="Item Name 1">
-<input type="hidden" name="amount_1" value="1.00">
-<input type="hidden" name="shipping_1" value="1.75">
-    
     
 <input type="submit" value="PayPal">
-</form>
+
         
 <table class="table table-hover">
     <thead class="thead-inverse">
@@ -38,7 +35,7 @@
         <td></td>
     </tbody>
 
-</table>
+</table></form>
 
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -47,30 +44,48 @@
     var shopcart = [];
     $(document).ready(function(){   
     outputCart();
+        $('.dynamic_quantity').on('change keyup', function(){
+            var iteminfo = $(this.dataset)[0];
+
+
+                var itemInCart = false;
+                console.log(shopcart);
+                var qty = $(this).val();
+                if (qty < 0){qty=0;$(this).val(0);}
+            
+                $.each(shopcart,function(index,value){
+                    if(value.id == iteminfo.id){
+                        shopcart[index].qty= qty;
+                        itemInCart = true;
+                    }
+                })
+
+                sessionStorage["sc"] = JSON.stringify(shopcart);
+                outputCart();
+            
+            console.log(sessionStorage["sc"]);
+        })
         
     function outputCart(){
         if(sessionStorage["sc"] != null){
            shopcart = JSON.parse(sessionStorage["sc"].toString());
-           console.log(sessionStorage["sc"]);
-            $("#checkout-div").show();
         }
         var holderHTML = '';
         var total = 0;
         var itemCount = 0;
         $.each(shopcart,function(index,value){
-            console.log(value);
+            console.log(index);
             var subtotal = value.qty * value.price;
+            var a = (index + 1);
             total += subtotal;
             itemCount += parseInt(value.qty);
-            holderHTML += '<tr><td>'+value.qty + '</td><td>#' + value.id + ' ' + value.name + '(' + value.s + ')</td><td>'+ formatMoney(value.price) +'</td><td class="text-right">' +formatMoney(subtotal)+'</td></tr>';
+            holderHTML += '<tr><td><input type="number" class="dynamic_quantity" name ="quantity_'+a+'" value="'+ value.qty + '" data-id="'+ value.id +  '"></td><td><input type="hidden" name ="item_name_'+a+'" value="'+ value.name + '' + value.s + '">' + value.name + '(' + value.s + ')</td><td><input type="hidden" name ="amount_'+a+'" value="'+ formatMoney(value.price) + '"><td>$'+ formatMoney(value.price) +'</td><td class="text-right">' +formatMoney(subtotal)+'</td></tr>';
         })
-        holderHTML += '<tr><td colspan="3" class="text-right">Total</td><td class="text-right">'+formatMoney(total)+'</td></tr>';
+        holderHTML += '<tr><td colspan="3" class="text-right">Total</td><td class="text-right">$'+formatMoney(total)+'</td></tr>';
         $("#output").html(holderHTML);
-        $(".total").html(formatMoney(total));
-        $(".items").html(itemCount);
         }
     function formatMoney(n){
-        return '$' + (n/100).toFixed(2);
+        return (n/100).toFixed(2);
     }
     })
 
