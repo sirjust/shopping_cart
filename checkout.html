@@ -17,9 +17,7 @@
 <input type="hidden" name="cmd" value="_cart">
 <input type="hidden" name="upload" value="1">
 <input type="hidden" name="business" value="seller@dezignerfotos.com">
-<input type="hidden" name="item_name_1" value="Item Name 1">
-<input type="hidden" name="amount_1" value="1.00">
-<input type="hidden" name="shipping_1" value="1.75">
+
     
 <input type="submit" value="PayPal">
         
@@ -32,13 +30,9 @@
             <th class="text-right">Subtotal</th>
         </tr>
     </thead>
-    <tbody id="output">
-        <td></td>
-        <td></td>
-    </tbody>
+    <tbody id="output"></tbody>
 
 </table></form>
-
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         
@@ -48,22 +42,20 @@
     outputCart();
         $('.dynamic_quantity').on('change keyup', function(){
             var iteminfo = $(this.dataset)[0];
+			var itemInCart = false;
+			console.log(shopcart);
+			var qty = $(this).val();
+			if (qty < 0){qty=0;$(this).val(0);}
 
+			$.each(shopcart,function(index,value){
+				if(value.id == iteminfo.id){
+					shopcart[index].qty= qty;
+					itemInCart = true;
+				}
+			})
 
-                var itemInCart = false;
-                console.log(shopcart);
-                var qty = $(this).val();
-                if (qty < 0){qty=0;$(this).val(0);}
-            
-                $.each(shopcart,function(index,value){
-                    if(value.id == iteminfo.id){
-                        shopcart[index].qty= qty;
-                        itemInCart = true;
-                    }
-                })
-
-                sessionStorage["sc"] = JSON.stringify(shopcart);
-                outputCart();
+			sessionStorage["sc"] = JSON.stringify(shopcart);
+			outputCart();
             
             console.log(sessionStorage["sc"]);
         })
@@ -81,7 +73,26 @@
             var a = (index + 1);
             total += subtotal;
             itemCount += parseInt(value.qty);
-            holderHTML += '<tr><td><input type="number" class="dynamic_quantity" name ="quantity_'+a+'" value="'+ value.qty + '" data-id="'+ value.id +  '"></td><td><input type="hidden" name ="item_name_'+a+'" value="'+ value.name + '' + value.s + '">' + value.name + '(' + value.s + ')</td><td><input type="hidden" name ="amount_'+a+'" value="'+ formatMoney(value.price) + '"><td>$'+ formatMoney(value.price) +'</td><td class="text-right">' +formatMoney(subtotal)+'</td></tr>';
+            holderHTML += '<tr><td><input size="5" type="number" class="dynamic_quantity" name ="quantity_'+a+'" value="'+ value.qty + '" data-id="'+ value.id +  '"></td><td><input type="hidden" name ="item_name_'+a+'" value="'+ value.name + '' + value.s + '">' + value.name + '(' + value.s + ')</td><td><input type="hidden" name ="amount_'+a+'" value="'+ formatMoney(value.price) + '">$'+ formatMoney(value.price) +'</td><td class="text-right">' +formatMoney(subtotal)+'</td></tr>';
+			
+			//using js string interpolation caused a problem with paypal
+			
+//			holderHTML += `<tr>
+//							<td>
+//								<input size="5" type="number" class="dynamic_quantity" name ="quantity_${a}" value=${value.qty} data-id=${value.id}>
+//							</td>
+//							<td>
+//								<input type="hidden" name ="item_name_{a}" value=${value.name} ${value.s}>
+//								${value.name} ${value.s}
+//							</td>
+//							<td>
+//								<input type="hidden" name ="amount_${a}" value=${formatMoney(value.price)}>
+//								'$'${formatMoney(value.price)}
+//							</td>
+//							<td class="text-right">
+//							${formatMoney(subtotal)}
+//							</td>
+//						   </tr>`;
         })
         holderHTML += '<tr><td colspan="3" class="text-right">Total</td><td class="text-right">$'+formatMoney(total)+'</td></tr>';
         $("#output").html(holderHTML);
