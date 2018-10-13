@@ -1,0 +1,13 @@
+            
+            #output {
+                clear: both;
+            }
+            
+            #checkout-div {
+                display: none;
+            }
+            
+            footer {
+                background-color: darkgray;
+                color: white;
+            }

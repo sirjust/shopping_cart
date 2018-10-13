@@ -12,6 +12,8 @@
         </style>
     </head>
     <body>
+	<div class="container">
+		<h1>Shopping Checkout</h1>
 
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 <input type="hidden" name="cmd" value="_cart">
@@ -19,7 +21,7 @@
 <input type="hidden" name="business" value="seller@dezignerfotos.com">
 
     
-<input type="submit" value="PayPal">
+
         
 <table class="table table-hover">
     <thead class="thead-inverse">
@@ -32,7 +34,11 @@
     </thead>
     <tbody id="output"></tbody>
 
-</table></form>
+</table>
+	<input type="submit" class="btn btn-primary btn-block" value="Checkout with PayPal">
+	<a href="products.html" class="btn btn-success">Continue Shopping</a>
+</form>
+</div>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         
@@ -40,7 +46,7 @@
     var shopcart = [];
     $(document).ready(function(){   
     outputCart();
-        $('.dynamic_quantity').on('change keyup', function(){
+        $('#output').on('change keyup', '.dynamic_quantity', function(){
             var iteminfo = $(this.dataset)[0];
 			var itemInCart = false;
 			console.log(shopcart);
